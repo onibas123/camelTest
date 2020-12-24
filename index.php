@@ -1,3 +1,4 @@
+<?php session_start();?>
 <html>
 <head>
   <title>Login</title>
@@ -12,16 +13,20 @@
         <div class="row vertical-offset-100">
             <div class="col-md-6 col-md-offset-3">
                 <div class="panel panel-default">
-                    <div style="background-color: #0e7d99;" class="panel-heading">                                
+                    <div style="background-color: #3276B1;" class="panel-heading">                                
                         <div class="row-fluid user-row">
 
-                            <h2 align="center"><font color="white">Login</font></h2>
+                            <h2 align="center"><font color="white">Autentificación</font></h2>
                             <br>
-
+                            <?php
+                            if(!empty($_SESSION['message']))
+                              echo '<center><h5><font color="red">'.$_SESSION['message'].'</font></h5></center>';
+                            ?>
                         </div>
                     </div>
                     <div class="panel-body">
-                        <form role="form" action="#" method="post">
+                        <form role="form" action="middleware/Users.php" method="post">
+                          <input type="hidden" name="action" id="input-action" value="login">
                           <div class="form-group">
                             <div class="input-group">
 
@@ -38,7 +43,6 @@
                               
                             </div> <!-- /.input-group -->
                           </div> <!-- /.form-group -->
-                          <input type="hidden" name="ip" id="ip" value="">
                           <input class="btn btn-lg btn-primary btn-block" type="submit" id="login" value="Iniciar">
                                 <br>
 
