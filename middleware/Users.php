@@ -10,7 +10,8 @@ switch ($action) {
         $uc->logout();
         break;
     default:
-        header('Location: '.BASE_URL);
+        //302 Found HTTP CODE STATUS
+        header('Location: '.BASE_URL, true, 302);
 }
 
 ?>

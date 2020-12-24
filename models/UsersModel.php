@@ -26,10 +26,10 @@ class UsersModel {
         return $result;
     }
 
-    public function add_session($users_id, $access_way, $created)
+    public function add_session($users_id, $access_way, $token, $created)
     {
         $conn = $this->db->db_connect();
-        $query = 'INSERT INTO sessions (users_id, access_way, created) VALUES ('.$users_id.', "'.$access_way.'", "'.$created.'")';
+        $query = 'INSERT INTO sessions (users_id, access_way, token, created) VALUES ('.$users_id.', "'.$access_way.'", "'.$token.'", "'.$created.'")';
         $result = mysqli_query($conn, $query);
         $this->db->db_close($conn);
         return $result;

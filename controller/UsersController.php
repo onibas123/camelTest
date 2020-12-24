@@ -12,7 +12,8 @@
   
     public function index()
     {
-      header('Location: '.BASE_URL.'/home.php');
+      //302 Found HTTP CODE STATUS
+      header('Location: '.BASE_URL.'/home.php', true, 302);
     }
 
     public function login()
@@ -57,14 +58,19 @@
             if($this->model->update_last_access($_SESSION['user_data']['id'], $date_now))
             {
               //insert into sessions 
-              if($this->model->add_session($_SESSION['user_data']['id'], 'WEB', $date_now))
+              $token = $this->generateToken();
+              if($this->model->add_session($_SESSION['user_data']['id'], 'WEB', $token, $date_now))
+              {
                 $this->index();
+              }
+                
             }
           }
           else
           {
             //no coincidence with user & pass
-            header('Location: '.BASE_URL);
+            //302 Found HTTP CODE STATUS
+            header('Location: '.BASE_URL, true, 302);
             $_SESSION['message'] = "Usuario y/o Contraseña incorrecto";
           }
 
@@ -72,14 +78,16 @@
         else
         {
           //password empty
-          header('Location: '.BASE_URL);
+          //302 Found HTTP CODE STATUS
+          header('Location: '.BASE_URL, true, 302);
           $_SESSION['message'] = "Contraseña es requerida";
         }
       }
       else
       {
         //user empty
-        header('Location: '.BASE_URL);
+        //302 Found HTTP CODE STATUS
+        header('Location: '.BASE_URL, true, 302);
         $_SESSION['message'] = "Usuario es requerido";
       }
     }
@@ -89,7 +97,14 @@
       session_start();
       $_SESSION = array();
       session_destroy();
-      header('Location: '.BASE_URL);
+      //302 Found HTTP CODE STATUS
+      header('Location: '.BASE_URL, true, 302);
+    }
+
+    private function generateToken()
+    {
+      $token = bin2hex(openssl_random_pseudo_bytes(32));
+      return $token;
     }
 }
 ?>
