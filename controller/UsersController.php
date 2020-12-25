@@ -59,7 +59,8 @@
             {
               //insert into sessions 
               $token = $this->generateToken();
-              if($this->model->add_session($_SESSION['user_data']['id'], 'WEB', $token, $date_now))
+              $exp = $this->add_mins_datetime(EXPIRE_MINS_INAC, $date_now);
+              if($this->model->add_session($_SESSION['user_data']['id'], 'WEB', $token, $date_now, $exp))
               {
                 $this->index();
               }
@@ -105,6 +106,15 @@
     {
       $token = bin2hex(openssl_random_pseudo_bytes(32));
       return $token;
+    }
+
+    private function add_mins_datetime($minutes_to_add, $datetime)
+    {
+      $time = new DateTime($datetime);
+      $time->add(new DateInterval('PT' . $minutes_to_add . 'M'));
+
+      $stamp = $time->format('Y-m-d H:i:s');
+      return $stamp;
     }
 }
 ?>

@@ -7,8 +7,8 @@ $root .= $name_project;
 
 
 //DEFINES
-define("BASE_URL", $root);
-define("EXPIRE_MINS_INAC", 3);
+define("BASE_URL_API", $root);
+define("EXPIRE_MINS_INAC_API", 3);
 
 
 ?>
