@@ -13,15 +13,15 @@
             break;
         case 'POST':
             // create a new register 
-            //$this->delete_contact($name);
+            $uc->add();
             break;
         case 'PATCH':
             // update a register
-            //$this->display_contact($name);
+            $uc->edit();
             break;
         case 'DELETE':
             // delete a register url?id=1..n
-            //$this->display_contact($name);
+            $uc->delete();
             break;
         default:
             //405 Method Not Allowed

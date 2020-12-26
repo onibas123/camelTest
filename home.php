@@ -26,7 +26,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Último acceso <?php echo $_SESSION['user_data']['last_access'];?><b class="caret"></b>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Último acceso <?php echo $_SESSION['user_data']['last_access'].' | '.$_SESSION['user_data']['access_way'];?><b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
                     <li><a><?php echo $_SESSION['user_data']['rol'];?></a></li>

@@ -45,6 +45,13 @@
               );
           }
 
+          $result = $this->um->getLastAccessWay($user_['id']);
+
+          while ($col = mysqli_fetch_array($result))
+          {
+              $user_['access_way'] = $col['access_way'];
+          }
+
           if(!empty($user_) && count($user_) > 0)
           {
             //user valid
