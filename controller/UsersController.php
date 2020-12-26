@@ -3,11 +3,11 @@
   require_once('../models/UsersModel.php');
   class UsersController
   {
-    private $model; 
+    private $um; 
     
     function __construct()
     {
-      $this->model = new UsersModel();
+      $this->um = new UsersModel();
     } 
   
     public function index()
@@ -23,14 +23,14 @@
       $input_user;
       $input_password;
       //validation variables & initialize
-      if(!empty($_POST['input-user']))
+      if(!empty(trim($_POST['input-user'])))
       {
-        $input_user = $_POST['input-user'];
+        $input_user = trim($_POST['input-user']);
         if(!empty($_POST['input-password']))
         {
-          $input_password = sha1($_POST['input-password']);
+          $input_password = sha1(trim($_POST['input-password']));
 
-          $result = $this->model->login($input_user, $input_password);
+          $result = $this->um->login($input_user, $input_password);
           //user_ => data array to store result query login
           $user_;
           while ($col = mysqli_fetch_array($result))
@@ -55,12 +55,12 @@
             $_SESSION['expire_mins'] = EXPIRE_MINS_INAC;
             $_SESSION['BASE_URL'] = BASE_URL;
 
-            if($this->model->update_last_access($_SESSION['user_data']['id'], $date_now))
+            if($this->um->update_last_access($_SESSION['user_data']['id'], $date_now))
             {
               //insert into sessions 
               $token = $this->generateToken();
               $exp = $this->add_mins_datetime(EXPIRE_MINS_INAC, $date_now);
-              if($this->model->add_session($_SESSION['user_data']['id'], 'WEB', $token, $date_now, $exp))
+              if($this->um->add_session($_SESSION['user_data']['id'], 'WEB', $token, $date_now, $exp))
               {
                 $this->index();
               }

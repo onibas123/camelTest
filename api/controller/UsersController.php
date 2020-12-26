@@ -3,93 +3,197 @@
   require_once('./models/UsersModel.php');
   class UsersController
   {
-    private $model; 
+    private $um; 
     
     function __construct()
     {
-      $this->model = new UsersModel();
-    } 
-
-    public function generateToken()
-    {
-      $token = bin2hex(openssl_random_pseudo_bytes(32));
-      return $token;
+      $this->um = new UsersModel();
     }
 
-    public function authorization()
+    public function get()
     {
-        if(!empty($_POST['user']))
+        //GET METHOD HTTP
+        $date_time_now = date('Y-m-d H:i:s');
+        if(isset($_GET['token']) && !empty(trim($_GET['token'])))
         {
-            if(!empty($_POST['password']))
+            // with token
+            $token = trim($_GET['token']);
+            $res = $this->um->validate_token($token, $date_time_now);
+            $identifier_session = 0;
+
+            while ($col = mysqli_fetch_array($res))
             {
-                $user = $_POST['user'];
-                $password = sha1($_POST['password']);
-
-                $result = $this->model->authentication($user, $password);
-                $user_;
-                while ($col = $result->fetch_assoc())
+                if(intval(trim($col['id'])) > 0 )
                 {
-                    $user_ = array(
-                        'id' => $col['id'],
-                        'user' => $col['user'],
-                        'last_access' => $col['last_access'],
-                        'rol_id' => $col['rol_id'],
-                        'rol' => $col['rol']
-                    );
+                    $identifier_session = trim($col['id']);
                 }
+            }
 
-                if(!empty($user_) && count($user_) > 0)
+            if($identifier_session > 0)
+            {
+                //token & session valid
+                if(isset($_GET['id']) && !empty(trim($_GET['id'])))
                 {
-                    //user valid
-                    $date_now = date('Y-m-d H:i:s');
-                    
-                    $exp = $this->add_mins_datetime(EXPIRE_MINS_INAC_API, $date_now);
-                    if($this->model->update_last_access($user_['id'], $date_now))
+                    $id = trim($_GET['id']);
+                    //get a specific user by id
+                    $result = $this->um->getUserById($id);
+                    $user;
+                    while ($col = mysqli_fetch_array($result))
                     {
-                        //insert into sessions 
-                        $token = $this->generateToken();
-                        if($this->model->add_session($user_['id'], 'API', $token, $date_now, $exp))
-                        {
-                            $token_data = array(
-                                'token' => $token,
-                                'created' => $date_now,
-                                'expired' => $exp
-                            );
-                            echo json_encode($token_data);
-                        }
-                        
+                        $user = array(
+                            'id' => $col['id'],
+                            'user' => $col['user'],
+                            'last_access' => $col['last_access'],
+                            'rol_id' => $col['rol_id'],
+                            'rol' => $col['rol']
+                        );
                     }
+                    echo json_encode($user);
                 }
                 else
                 {
-                    //no coincidence with user & pass
-                    //403 Forbidden
-                    http_response_code(403);
+                    //get all users
+                    $result = $this->um->getAllUsers();
+                    $users = array();
+                    while ($col = mysqli_fetch_array($result))
+                    {
+                        $temp = array(
+                            'id' => $col['id'],
+                            'user' => $col['user'],
+                            'last_access' => $col['last_access'],
+                            'rol_id' => $col['rol_id'],
+                            'rol' => $col['rol']
+                        );
+
+                        array_push($users, $temp);
+                    }
+                    echo json_encode($users);
                 }
-
-
             }
             else
             {
-                //Unauthorized
-                http_response_code(401);
+                //Forbidden
+                http_response_code(403);
             }
         }
         else
         {
-            //Unauthorized
-            http_response_code(401);
+            // without token
+            //Forbidden
+            http_response_code(403);
         }
-        
     }
 
-    private function add_mins_datetime($minutes_to_add, $datetime)
+    public function add()
     {
-      $time = new DateTime($datetime);
-      $time->add(new DateInterval('PT' . $minutes_to_add . 'M'));
+        //POST METHOD HTTP
+        $date_time_now = date('Y-m-d H:i:s');
+        if(isset($_GET['token']) && !empty(trim($_GET['token'])))
+        {
+            // with token
+            $token = trim($_GET['token']);
+            $res = $this->um->validate_token($token, $date_time_now);
+            $identifier_session = 0;
 
-      $stamp = $time->format('Y-m-d H:i:s');
-      return $stamp;
+            while ($col = mysqli_fetch_array($res))
+            {
+                if(intval(trim($col['id'])) > 0 )
+                {
+                    $identifier_session = trim($col['id']);
+                }
+            }
+
+            if($identifier_session > 0)
+            {
+                //token & session valid
+            }
+            else
+            {
+                //Forbidden
+                http_response_code(403);
+            }
+        }
+        else
+        {
+            // without token
+            //Forbidden
+            http_response_code(403);
+        }
     }
+
+    public function edit()
+    {
+        //PATCH METHOD HTTP
+        $date_time_now = date('Y-m-d H:i:s');
+        if(isset($_GET['token']) && !empty(trim($_GET['token'])))
+        {
+            // with token
+            $token = trim($_GET['token']);
+            $res = $this->um->validate_token($token, $date_time_now);
+            $identifier_session = 0;
+
+            while ($col = mysqli_fetch_array($res))
+            {
+                if(intval(trim($col['id'])) > 0 )
+                {
+                    $identifier_session = trim($col['id']);
+                }
+            }
+
+            if($identifier_session > 0)
+            {
+                //token & session valid
+            }
+            else
+            {
+                //Forbidden
+                http_response_code(403);
+            }
+        }
+        else
+        {
+            // without token
+            //Forbidden
+            http_response_code(403);
+        }
+    }
+
+    public function delete()
+    {
+        //DELETE METHOD HTTP
+        $date_time_now = date('Y-m-d H:i:s');
+        if(isset($_DELETE['token']) && !empty(trim($_DELETE['token'])))
+        {
+            // with token
+            $token = trim($_DELETE['token']);
+            $res = $this->um->validate_token($token, $date_time_now);
+            $identifier_session = 0;
+
+            while ($col = mysqli_fetch_array($res))
+            {
+                if(intval(trim($col['id'])) > 0 )
+                {
+                    $identifier_session = trim($col['id']);
+                }
+            }
+
+            if($identifier_session > 0)
+            {
+                //token & session valid
+            }
+            else
+            {
+                //Forbidden
+                http_response_code(403);
+            }
+        }
+        else
+        {
+            // without token
+            //Forbidden
+            http_response_code(403);
+        }
+    }
+  
 }
 ?>
