@@ -29,7 +29,7 @@ you can read the username, the last access in date time format and where did you
 		config/
 			config.php ->
 				Line 5) $name_project = "camelTest"; /*name of the folder that contain this project.*/
-				Line 9) define("EXPIRE_MINS_INAC", 3); /*mins to check if exist inactivity.*/
+				Line 9) define("EXPIRE_MINS_INAC", 3); /*mins to check if exist inactivity & close session.*/
 			Database.php -> /*set values to parameters of connection to database.*/
 				Line 10) $this->server = 'localhost';
         		Line 11) $this->database = 'camel';
