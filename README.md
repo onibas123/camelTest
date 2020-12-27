@@ -76,9 +76,9 @@ you can read the username, the last access in date time format and where did you
 	 	Token with date time of creation and expire. That will register in session table. Otherwise the answer will be a http status code.
 
 	
-	Once you get the token, you can access the other endpoints, create a user[POST], update a user[PATCH], get a user or get all users[GET], delete a user[DELETE].
+	Once you get the token, you can access the other endpoints, create an user[POST], update an user[PATCH], get an user or get all users[GET], delete an user[DELETE].
 
-	- Create a user:
+	- Create an user:
 		/* http://localhost/camelTest/api/users.php */
 		- endpoint: BASE_URL_API/api/users.php
 		- method: post
@@ -87,7 +87,7 @@ you can read the username, the last access in date time format and where did you
 			{"id":4,"user":"usuario3","last_access":"2020-12-27 08:12:15","roles_id":"2"} 
 		Created user data is response by api. Otherwise the answer will be a http status code.
 
-	- Update a user:
+	- Update an user:
 		/* http://localhost/camelTest/api/users.php */
 		- endpoint: BASE_URL_API/api/users.php
 		- method: patch
@@ -96,7 +96,7 @@ you can read the username, the last access in date time format and where did you
 			{"id":4,"user":"usuario3","roles_id":"2"}
 		Edited user data is response by api. Otherwise the answer will be a http status code.
 
-	- Get a user or Get all users:
+	- Get an user or Get all users:
 		/* http://localhost/camelTest/api/users.php */
 		- endpoint: BASE_URL_API/api/users.php
 		- method: get
@@ -112,7 +112,7 @@ you can read the username, the last access in date time format and where did you
 					{"id":1,"user":"admin","last_access":"27-12-2020 09:17:34","rol_id":1,"rol":"ADMINISTRADOR"}
 		Get user data is response by api. Otherwise the answer will be a http status code.
 	
-	- Delete a user:
+	- Delete an user:
 		/* http://localhost/camelTest/api/users.php */
 		- endpoint: BASE_URL_API/api/users.php
 		- method: delete
