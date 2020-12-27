@@ -65,6 +65,9 @@ you can read the username, the last access in date time format and where did you
 
 	- To use this API, it´s necesary authentication & authorization to get a token a save a new session.
 
+		BASE_URL_API = http://localhost/project_name <=> example http://localhost/camelTest
+
+		/* http://localhost/camelTest/api/authorization.php */
 		- endpoint: /api/authorization.php
 		- method: post
 		- data: {user[string | length [100], password [string | length 255]} /*minimum data required*/
@@ -74,9 +77,10 @@ you can read the username, the last access in date time format and where did you
 
 	
 	Once you get the token, you can access the other endpoints, create a user[POST], update a user[PATCH], get a user or get all users[GET], delete a user[DELETE].
-	
+
 	- Create a user:
-		- endpoint: /api/users.php
+		/* http://localhost/camelTest/api/users.php */
+		- endpoint: BASE_URL_API/api/users.php
 		- method: post
 		- data: {token [string | length 255], user [string | 100], password [string | 255], roles_id [integer | 11]} /*minimum data required*/
 		- response: json successful. Example: 
@@ -84,7 +88,8 @@ you can read the username, the last access in date time format and where did you
 		Created user data is response by api. Otherwise the answer will be a http status code.
 
 	- Update a user:
-		- endpoint: /api/users.php
+		/* http://localhost/camelTest/api/users.php */
+		- endpoint: BASE_URL_API/api/users.php
 		- method: patch
 		- data: {token [string | length 255], user [string | 100], password [string | 255], roles_id [integer | 11], user_id [integer | 11]} */minimum data required/*
 		- response a json successful. Example: 
@@ -92,7 +97,8 @@ you can read the username, the last access in date time format and where did you
 		Edited user data is response by api. Otherwise the answer will be a http status code.
 
 	- Get a user or Get all users:
-		- endpoint: /api/users.php
+		/* http://localhost/camelTest/api/users.php */
+		- endpoint: BASE_URL_API/api/users.php
 		- method: get
 		- data: {token [string | length 255], id [integer | 11 ]} */minimum data required only token, id can be null or empty/*
 		- response: json successful with a specific user or all users. Example:
@@ -107,8 +113,8 @@ you can read the username, the last access in date time format and where did you
 		Get user data is response by api. Otherwise the answer will be a http status code.
 	
 	- Delete a user:
-		
-		- endpoint: /api/users.php
+		/* http://localhost/camelTest/api/users.php */
+		- endpoint: BASE_URL_API/api/users.php
 		- method: delete
 		- data: {token [string | length 255], id [integer | 11 ]} /*minimum data required*/
 		- response: header http status code "200 OK" successful. Otherwise the answer will be a http status code.
