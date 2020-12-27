@@ -188,16 +188,14 @@
             else
             {
                 //Forbidden
-                echo 2;
-                //http_response_code(403);
+                http_response_code(403);
             }
         }
         else
         {
             // without token
             //Forbidden
-            echo 3;
-            //http_response_code(403);
+            http_response_code(403);
         }
     }
 
