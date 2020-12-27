@@ -57,7 +57,7 @@ you can read the username, the last access in date time format and where did you
 			-> 200 OK for correctly responses.	
 			-> 403 Forbidden for sessión expired or no token.
 			-> 201 Created in add a new user.
-			-> 500 Internal server error if exist a error when execute a transaction sql.
+			-> 500 Internal server error if exist an error when execute a transaction sql.
 			-> 400 Bad request if(user == null || password == null || roles_id == null).
 			-> 403 Forbidden when rol = "USUARIO" || rol.id = 2	
 
