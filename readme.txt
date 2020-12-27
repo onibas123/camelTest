@@ -1,4 +1,5 @@
 Camel Test
+
 It is a project that you can management users by an api rest, also you can log in in the system by way a view and 
 you can read the username, the last access in date time format and where did you access.
 
@@ -114,6 +115,13 @@ Instructive API
 		- method: delete
 		- data: {token [string | length 255], id [integer | 11 ]} /*minimum data required*/
 		- response: header http status code "200 OK" successful. Otherwise the answer will be a http status code.
+
+	
+	Users example:
+		1) id => 1, user => admin, password => admin, rol_id => 1, rol = ADMINISTRADOR
+		2) id => 2, user => usuario1, password => usuario1, rol_id => 2, rol = USUARIO
+
+	
 
 
 		
