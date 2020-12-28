@@ -2,27 +2,14 @@
 
 - It is a project that you can management users by an api rest, also you can log in in the system by way a view and 
 you can read the username, the last access in date time format and where did you access.
-
-## To make the system, it was necessary to identify three entities and their data definitions:
-		
-	- users -> 
-		- id [int][11][auto increment][primary_key]
-		- user [varchar][100][unique]
-		- password [varchar][255] (sha1)
-		- last_access [date_time] (it is updated in each access either through the web or api)
-		- roles_id [int][11][foreign key][related: roles]
-
-	- roles ->
-		- id [int][11][auto increment][primary_key]
-		- rol [varchar][150][unique]
-
-	- sessions ->
-		- id [int][11][auto increment][primary_key]
-		- users_id [int][11][foreign key][related: users]
-		- access_way [varchar][3] (can be "API" || "WEB")
-		- token [varchar][255] (token of security to access api by http request, authorization after authentication with user & password. This token waill expire.)
-		- created [date_time] (date time creation)
-		- exp [date_time] (date time to expired token)
+## Installation
+- MariaDB: 10.4.14 
+- PHP: 7.2.34
+- Apache: 2.4.46 (Win64)
+- Up Apache services & MariaDB or MySQL service.
+## Usage
+	- Clone or download this project into a folder and set a name to the folder. After this, it´s necesary import "camel.sql" to your database management.
+	Once it´s ok! you need continue to configure parameters in the config files that are below.
 
 ## Configure:
 	- WEB ->
@@ -45,6 +32,29 @@ you can read the username, the last access in date time format and where did you
         		Line 11) $this->database = 'camel';
         		Line 12) $this->username = 'root';
         		Line 13) $this->password = '';
+
+
+## To make the system, it was necessary to identify three entities and their data definitions:
+		
+	- users -> 
+		- id [int][11][auto increment][primary_key]
+		- user [varchar][100][unique]
+		- password [varchar][255] (sha1)
+		- last_access [date_time] (it is updated in each access either through the web or api)
+		- roles_id [int][11][foreign key][related: roles]
+
+	- roles ->
+		- id [int][11][auto increment][primary_key]
+		- rol [varchar][150][unique]
+
+	- sessions ->
+		- id [int][11][auto increment][primary_key]
+		- users_id [int][11][foreign key][related: users]
+		- access_way [varchar][3] (can be "API" || "WEB")
+		- token [varchar][255] (token of security to access api by http request, authorization after authentication with user & password. This token waill expire.)
+		- created [date_time] (date time creation)
+		- exp [date_time] (date time to expired token)
+
 ## HTTP Status Codes using:
 	- WEB ->
 		-> 302 Found To use for redirect and routes founded
